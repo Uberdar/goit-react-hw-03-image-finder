@@ -17,7 +17,7 @@ export default class App extends Component {
     src: '',
   };
   toggleModal = e => {
-    console.log('e: ', e['target'].dataset.test);
+    // console.log('e: ', e['target'].dataset.test);
     let x = e['target'].dataset.test;
     this.setState({
       showmodal: !this.state.showmodal,
@@ -45,7 +45,7 @@ export default class App extends Component {
     this.setState({ obj: wholeObj });
   };
   render() {
-    console.log('this.state.obj:', this.state.obj);
+    // console.log('this.state.obj:', this.state.obj);
     return (
       <div>
         <SearchForm whenSubmit={this.handleFormSubmit} />
