@@ -13,8 +13,8 @@ export default class ImageGallery extends Component {
       prevProps.pictureName !== this.props.pictureName ||
       this.props.page !== prevProps.page
     ) {
-      console.log('prevProps.page: ', prevProps.page);
-      console.log('this.props.page: ', this.props.page);
+      // console.log('prevProps.page: ', prevProps.page);
+      // console.log('this.props.page: ', this.props.page);
       //   console.log('изменилось поисковое имя картинки');
       //   console.log('prevProps.pictureName: ', prevProps.pictureName);
       //   console.log('this.props.pictureName: ', this.props.pictureName);
@@ -23,7 +23,7 @@ export default class ImageGallery extends Component {
         `https://pixabay.com/api/?key=25591290-62741b6a34916fce22a647eec&q=${this.props.pictureName}&per_page=3&page=${this.props.page}`
       )
         .then(res => res.json())
-        .then(picture =>
+        .then(picture => {
           this.setState({
             picture:
               this.props.page > 1
@@ -33,9 +33,13 @@ export default class ImageGallery extends Component {
                   }
                 : picture,
             status: 'resolved',
-          })
-        )
+          });
+        })
         .catch(error => this.setState({ error, status: 'rejected' }));
+      // .finally(this.props.wholeObj(this.state.picture));
+    }
+    if (prevState.picture?.hits?.length !== this.state.picture?.hits?.length) {
+      this.state.picture && this.props.wholeObj(this.state.picture);
     }
   }
   //   toggleModal = () => {
@@ -59,10 +63,12 @@ export default class ImageGallery extends Component {
   };
 
   render() {
-    console.log('toggleModal: ', this.state.showmodal);
-    // console.log('obj in pictures', this.state.picture);
+    console.log(this.state.picture?.toString()); //
+    // console.log('toggleModal: ', this.state.showmodal);
+    console.log('obj in pictures', this.state.picture);
+    // {this.state.picture ? this.props.wholeOBJ(this.state.picture) : null}
     // console.log(this.state.page);
-
+    // {this.state.picture === 'null' || this.state.picture.hits.length === this.state.picture.total ? }
     const { loading, picture, status } = this.state;
     if (status === 'idle') {
       return <div>Enter Search Word</div>;

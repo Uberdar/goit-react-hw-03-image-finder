@@ -10,6 +10,7 @@ import Modal from './Modal/Modal';
 
 export default class App extends Component {
   state = {
+    obj: null,
     pictureName: '',
     page: 1,
     showmodal: false,
@@ -32,6 +33,7 @@ export default class App extends Component {
     // console.log('pictureName: ', pictureName);
     this.setState({
       pictureName,
+      page: 1,
     });
   };
   addNewPages = () => {
@@ -39,8 +41,11 @@ export default class App extends Component {
       page: prevState.page + 1,
     }));
   };
+  handleWholeObj = wholeObj => {
+    this.setState({ obj: wholeObj });
+  };
   render() {
-    console.log(this.state.addPages);
+    console.log('this.state.obj:', this.state.obj);
     return (
       <div>
         <SearchForm whenSubmit={this.handleFormSubmit} />
@@ -48,8 +53,13 @@ export default class App extends Component {
           pictureName={this.state.pictureName}
           page={this.state.page}
           toggleModal={this.toggleModal}
+          wholeObj={this.handleWholeObj}
         />
-        <LoadMore newPages={this.addNewPages} />
+
+        {this.state.obj !== null &&
+        this.state.obj?.hits?.length < this.state.obj?.totalHits ? (
+          <LoadMore newPages={this.addNewPages} />
+        ) : null}
         {this.state.showmodal ? (
           <Modal imgSrc={this.state.src} onClose={this.toggleModalCL} />
         ) : null}
