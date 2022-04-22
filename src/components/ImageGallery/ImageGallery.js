@@ -63,12 +63,12 @@ export default class ImageGallery extends Component {
   };
 
   render() {
-    console.log(this.state.picture?.toString()); //
+    // console.log(this.state.picture?.toString()); //
     // console.log('toggleModal: ', this.state.showmodal);
-    console.log('obj in pictures', this.state.picture);
-    // {this.state.picture ? this.props.wholeOBJ(this.state.picture) : null}
+    // console.log('obj in pictures', this.state.picture);
+
     // console.log(this.state.page);
-    // {this.state.picture === 'null' || this.state.picture.hits.length === this.state.picture.total ? }
+
     const { loading, picture, status } = this.state;
     if (status === 'idle') {
       return <div>Enter Search Word</div>;
